@@ -1,10 +1,11 @@
 package com.example.myProject.controllers;
 
 import com.example.myProject.models.Cell;
-import com.example.myProject.utils.DBClass;
+import com.example.myProject.repos.CellRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -22,22 +23,23 @@ public class MainController {
 
     @GetMapping("/about")
     public String about(Model model) {
-        List<Cell> cellList = new ArrayList<>();
-        var rowSet = DBClass.getTemplate().queryForRowSet("select * from Cells");
-
-        if (rowSet != null) {
-            while(rowSet.next()) {
-                short health = rowSet.getShort(1);
-                short max_health = rowSet.getShort(2);
-                short radius = rowSet.getShort(3);
-                short regen = rowSet.getShort(4);
-
-                cellList.add(new Cell(health, max_health, radius, regen));
-            }
-        }
-
+        List<Cell> cellList = new CellRepository().findAll();
 
         model.addAttribute("cellList", cellList);
-        return "home";
+        return "about";
+    }
+
+    @GetMapping("/addCells")
+    public String addCells(Model model) {
+        return "addCells";
+    }
+
+    @PostMapping("/addCells")
+    public String addCellsPost(@RequestParam short health, @RequestParam short max_health,
+                               @RequestParam short radius, @RequestParam short regen, Model model) {
+
+        CellRepository cellRepository = new CellRepository();
+        cellRepository.insert(new Cell(health, max_health, radius, regen));
+        return "redirect:/about";
     }
 }
