@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+</head>
+
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5 mb-5">
+    <h1>Add Cells</h1>
+    <form action="/addCells" method="post">
+        <input type="text" name="health" placeholder="Enter cell health" class="form-control">
+        <input type="text" name="max_health" placeholder="Enter cell max health" class="form-control">
+        <input type="text" name="radius" placeholder="Enter cell radius" class="form-control">
+        <input type="text" name="regen" placeholder="Enter cell regen delay" class="form-control">
+        <button type="submit" class="btn btn-success">Add Cell</button>
+    </form>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>

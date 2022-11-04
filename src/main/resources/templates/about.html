@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+</head>
+
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container">
+    <h1> About Page</h1>
+</div>
+
+<div th:each="cell : ${cellList}" class="alert alert-info mt-2">
+    <h3 th:text="${cell.id}"></h3>
+    <p th:text="${cell.health}"></p>
+    <p th:text="${cell.max_health}"></p>
+    <p th:text="${cell.radius}"></p>
+    <p th:text="${cell.regen}"></p>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
